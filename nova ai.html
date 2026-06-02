@@ -3,149 +3,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova AI - Create Anything with AI</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nova AI</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#111827,#1e293b,#7C3AED);
-    color:white;
+background:linear-gradient(135deg,#0f172a,#1e293b,#7c3aed);
+color:white;
+min-height:100vh;
 }
 
 header{
-    padding:20px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
 }
 
 .logo{
-    font-size:32px;
-    font-weight:bold;
-    color:#fff;
+font-size:35px;
+font-weight:bold;
 }
 
 nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:25px;
-    font-size:18px;
+color:white;
+text-decoration:none;
+margin-left:20px;
 }
 
 .hero{
-    min-height:90vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    flex-direction:column;
-    padding:20px;
+text-align:center;
+padding:100px 20px;
 }
 
 .hero h1{
-    font-size:65px;
-    margin-bottom:15px;
+font-size:60px;
+margin-bottom:20px;
 }
 
 .hero span{
-    color:#60A5FA;
+color:#60a5fa;
 }
 
 .hero p{
-    max-width:700px;
-    font-size:22px;
-    margin-bottom:30px;
+font-size:22px;
+margin-bottom:30px;
 }
 
-.btns{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
+input,select,textarea{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+margin-top:10px;
 }
 
-.btn{
-    padding:15px 35px;
-    border:none;
-    border-radius:30px;
-    font-size:18px;
-    cursor:pointer;
-    transition:.3s;
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#7c3aed;
+color:white;
+cursor:pointer;
+margin-top:15px;
 }
 
-.primary{
-    background:#7C3AED;
-    color:white;
-}
-
-.secondary{
-    background:#2563EB;
-    color:white;
-}
-
-.btn:hover{
-    transform:translateY(-5px);
-}
-
-.features{
-    padding:80px 8%;
-}
-
-.section-title{
-    text-align:center;
-    font-size:40px;
-    margin-bottom:50px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
 }
 
 .card{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
-    padding:30px;
-    border-radius:20px;
-    transition:.3s;
+background:rgba(255,255,255,.08);
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+backdrop-filter:blur(10px);
 }
 
-.card:hover{
-    transform:translateY(-8px);
+.result{
+margin-top:20px;
+padding:15px;
+background:#111827;
+border-radius:10px;
 }
 
-.card h3{
-    margin-bottom:15px;
-}
-
-.languages{
-    padding:60px 8%;
-    text-align:center;
-}
-
-.lang-list{
-    margin-top:20px;
-    font-size:20px;
-    line-height:2;
-}
-
-footer{
-    text-align:center;
-    padding:30px;
-    background:#111827;
-}
-
-#output{
-    margin-top:20px;
-    font-size:20px;
-    color:#60A5FA;
+img{
+max-width:100%;
+border-radius:10px;
+margin-top:15px;
 }
 </style>
 </head>
@@ -153,106 +107,120 @@ footer{
 <body>
 
 <header>
-    <div class="logo">NOVA AI</div>
+<div class="logo">NOVA AI</div>
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Image AI</a>
-        <a href="#">Video AI</a>
-        <a href="#">Chat AI</a>
-        <a href="#">Contact</a>
-    </nav>
+<nav>
+<a href="#">Home</a>
+<a href="#">Image AI</a>
+<a href="#">Video AI</a>
+<a href="#">Chat AI</a>
+</nav>
 </header>
 
 <section class="hero">
-    <h1>Create Anything With <span>Nova AI</span></h1>
-
-    <p>
-        Generate Images, Videos, Voiceovers, Content,
-        Code and Translations using powerful AI tools.
-    </p>
-
-    <div class="btns">
-        <button class="btn primary" onclick="generateImage()">
-            Generate Image
-        </button>
-
-        <button class="btn secondary" onclick="generateVideo()">
-            Generate Video
-        </button>
-    </div>
-
-    <div id="output"></div>
+<h1>Create Anything With <span>Nova AI</span></h1>
+<p>AI Chat, AI Image, AI Video & Multi Language Support</p>
 </section>
 
-<section class="features">
-
-<h2 class="section-title">AI Features</h2>
-
-<div class="grid">
+<div class="container">
 
 <div class="card">
-<h3>🎨 AI Image Generator</h3>
-<p>
-Text to Image, Image Enhancement,
-Background Removal, AI Art and Logo Creator.
-</p>
-</div>
+<h2>🤖 AI Chat</h2>
 
-<div class="card">
-<h3>🎥 AI Video Generator</h3>
-<p>
-Create professional AI videos,
-avatars and animations instantly.
-</p>
+<textarea id="chatPrompt"
+placeholder="Ask Nova AI..."
+rows="4"></textarea>
+
+<button onclick="chatAI()">Generate Answer</button>
+
+<div class="result" id="chatResult"></div>
 </div>
 
 <div class="card">
-<h3>🤖 AI Chat Assistant</h3>
-<p>
-Ask questions, generate content,
-code, summaries and translations.
-</p>
+<h2>🎨 AI Image Generator</h2>
+
+<input type="text"
+id="imagePrompt"
+placeholder="Enter image prompt">
+
+<button onclick="generateImage()">
+Generate Image
+</button>
+
+<div id="imageResult"></div>
 </div>
 
 <div class="card">
-<h3>🔊 AI Audio Tools</h3>
-<p>
-Voice Cloning, Text To Speech,
-Speech Recognition and Music Creation.
-</p>
+<h2>🎥 AI Video Generator</h2>
+
+<input type="text"
+id="videoPrompt"
+placeholder="Enter video prompt">
+
+<button onclick="generateVideo()">
+Generate Video
+</button>
+
+<div class="result" id="videoResult"></div>
+</div>
+
+<div class="card">
+<h2>🌍 Language</h2>
+
+<select id="language">
+<option>English</option>
+<option>தமிழ்</option>
+<option>Hindi</option>
+<option>Telugu</option>
+<option>Malayalam</option>
+<option>Kannada</option>
+<option>French</option>
+<option>German</option>
+<option>Spanish</option>
+<option>Arabic</option>
+<option>Chinese</option>
+<option>Japanese</option>
+<option>Korean</option>
+</select>
 </div>
 
 </div>
-
-</section>
-
-<section class="languages">
-
-<h2 class="section-title">Supported Languages</h2>
-
-<div class="lang-list">
-English • தமிழ் • हिन्दी • తెలుగు • മലയാളം • ಕನ್ನಡ •
-Español • Français • Deutsch • العربية • 中文 • 日本語 • 한국어
-</div>
-
-</section>
-
-<footer>
-<h3>🚀 NOVA AI</h3>
-<p>Create Anything with AI</p>
-</footer>
 
 <script>
 
+function chatAI(){
+
+let prompt =
+document.getElementById("chatPrompt").value;
+
+document.getElementById("chatResult").innerHTML=
+"Nova AI Response:<br><br>" +
+"This is a demo response for: <b>"+prompt+"</b>";
+
+}
+
 function generateImage(){
-    document.getElementById("output").innerHTML =
-    "🎨 AI Image Generator Opened...";
+
+let prompt =
+document.getElementById("imagePrompt").value;
+
+document.getElementById("imageResult").innerHTML=
+`
+<h3>Generated Image</h3>
+<img src="https://picsum.photos/800/500?random=${Math.random()}">
+<p>${prompt}</p>
+`;
+
 }
 
 function generateVideo(){
-    document.getElementById("output").innerHTML =
-    "🎥 AI Video Generator Opened...";
+
+let prompt =
+document.getElementById("videoPrompt").value;
+
+document.getElementById("videoResult").innerHTML=
+"Video generation started for: <b>"+prompt+"</b><br><br>Demo Version";
+
 }
 
 </script>
