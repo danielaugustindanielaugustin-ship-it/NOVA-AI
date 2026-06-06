@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Generator - NOVA AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><span>NOVA AI</span></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li><a href="image-generator.html" class="active">Image Generator</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="image-generator-container">
+        <h1>NOVA AI Image Generator</h1>
+        <p>Create stunning images from text descriptions</p>
+        
+        <div class="generator-form">
+            <div class="form-group">
+                <label for="prompt">Image Description</label>
+                <input type="text" id="prompt" class="prompt-input" placeholder="Describe the image you want to create...">
+            </div>
+            
+            <div class="form-group">
+                <label for="style">Style</label>
+                <select id="style" class="style-select">
+                    <option value="realistic">Realistic</option>
+                    <option value="artistic">Artistic</option>
+                    <option value="digital">Digital</option>
+                    <option value="abstract">Abstract</option>
+                </select>
+            </div>
+            
+            <button id="generateImage" class="btn btn-primary">Generate Image</button>
+        </div>
+        
+        <div class="image-result" id="imageResult">
+            <p>Your generated image will appear here</p>
+        </div>
+    </div>
+
+    <script src="js/image.js"></script>
+</body>
+</html>

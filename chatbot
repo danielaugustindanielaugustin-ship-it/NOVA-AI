@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - NOVA AI</title>
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><span>NOVA AI</span></div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html" class="active">AI Chatbot</a></li>
+                <li><a href="image-generator.html">Image Generator</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="chatbot-container">
+        <div class="chat-header">
+            <h1>NOVA AI Chatbot</h1>
+            <p>Ask anything - NOVA is here to help!</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <p>Hello! I'm NOVA AI. How can I help you today?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message to NOVA...">
+            <button id="sendMessage" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+    <script src="js/chatbot.js"></script>
+</body>
+</html>
