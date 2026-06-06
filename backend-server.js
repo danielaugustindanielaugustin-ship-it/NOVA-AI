@@ -1,3 +1,7 @@
+# Python Flask example
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    return {"message": "Hello from backend"}
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from http.cookies import SimpleCookie
 from pathlib import Path
