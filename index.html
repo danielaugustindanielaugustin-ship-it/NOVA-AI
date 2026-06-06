@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nova AI Studio 2026</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="AI tools">
+        <div class="brand">
+          <span class="brand-mark">N</span>
+          <div>
+            <h1>Nova AI</h1>
+            <p>2026 Creator Studio</p>
+          </div>
+        </div>
+
+        <nav class="tool-nav" aria-label="Sections">
+          <button class="nav-item active" data-panel="answerPanel">Instant answer</button>
+          <button class="nav-item" data-panel="photoPanel">AI photos</button>
+          <button class="nav-item" data-panel="videoPanel">AI videos</button>
+        </nav>
+
+        <div class="status-strip">
+          <span class="pulse"></span>
+          <span>Local demo mode</span>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">New 2026 AI features</p>
+            <h2>Answers, images, and motion from one prompt</h2>
+          </div>
+          <button id="clearAll" class="ghost-button" type="button">Clear</button>
+        </header>
+
+        <section id="answerPanel" class="panel active" aria-labelledby="answerTitle">
+          <div class="panel-copy">
+            <h3 id="answerTitle">Instant answer</h3>
+            <p>Ask anything and get a fast drafted response with next-step suggestions.</p>
+          </div>
+          <div class="composer">
+            <textarea id="answerPrompt" rows="5" placeholder="Example: Build me a launch plan for an AI photo/video app"></textarea>
+            <button id="answerBtn" class="primary-button" type="button">Generate answer</button>
+          </div>
+          <article id="answerOutput" class="output-text" aria-live="polite">
+            Your answer will appear here.
+          </article>
+        </section>
+
+        <section id="photoPanel" class="panel" aria-labelledby="photoTitle">
+          <div class="panel-copy">
+            <h3 id="photoTitle">AI photo generator</h3>
+            <p>Create a generated poster-style image from your prompt and download it as PNG.</p>
+          </div>
+          <div class="creator-grid">
+            <div class="composer">
+              <textarea id="photoPrompt" rows="5" placeholder="Example: Futuristic Chennai skyline with friendly AI robots and neon rain"></textarea>
+              <label class="field">
+                Style
+                <select id="photoStyle">
+                  <option value="cinematic">Cinematic</option>
+                  <option value="anime">Anime</option>
+                  <option value="product">Product render</option>
+                  <option value="editorial">Editorial</option>
+                </select>
+              </label>
+              <button id="photoBtn" class="primary-button" type="button">Generate photo</button>
+              <button id="downloadPhoto" class="secondary-button" type="button">Download PNG</button>
+            </div>
+            <canvas id="photoCanvas" width="960" height="640" aria-label="Generated photo preview"></canvas>
+          </div>
+        </section>
+
+        <section id="videoPanel" class="panel" aria-labelledby="videoTitle">
+          <div class="panel-copy">
+            <h3 id="videoTitle">AI video generator</h3>
+            <p>Generate a looping animated scene from your idea and export a short WebM clip.</p>
+          </div>
+          <div class="creator-grid">
+            <div class="composer">
+              <textarea id="videoPrompt" rows="5" placeholder="Example: A solar-powered AI city waking up at sunrise"></textarea>
+              <label class="field">
+                Motion
+                <select id="motionStyle">
+                  <option value="orbit">Orbit</option>
+                  <option value="rise">Rise</option>
+                  <option value="wave">Wave</option>
+                  <option value="burst">Burst</option>
+                </select>
+              </label>
+              <button id="videoBtn" class="primary-button" type="button">Generate video</button>
+              <button id="recordVideo" class="secondary-button" type="button">Export 4s WebM</button>
+            </div>
+            <canvas id="videoCanvas" width="960" height="640" aria-label="Generated video preview"></canvas>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
