@@ -929,3 +929,10 @@
   </script>
 </body>
 </html>
+// JavaScript fetch example
+fetch('http://localhost:5000/api/data')
+  .then(res => res.json())
+  .then(data => {
+    console.log(data.message); // "Hello from backend"
+    document.getElementById('output').innerText = data.message;
+  });
