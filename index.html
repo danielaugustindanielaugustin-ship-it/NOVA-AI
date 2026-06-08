@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
@@ -362,6 +362,7 @@
 
     .chat-box {
       min-height: 440px;
+      max-height: 500px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -528,9 +529,9 @@
       <button class="nav-btn" data-page="contact">Contact</button>
 
       <div class="plan-card">
-        <strong>Pro Plan</strong>
-        <p style="margin:5px 0 0;font-size:13px">847 / 1,000 requests used</p>
-        <div class="bar"><span></span></div>
+        <strong id="userPlan">Free Plan</strong>
+        <p style="margin:5px 0 0;font-size:13px" id="usageText">0 / 100 requests used</p>
+        <div class="bar"><span id="usageBar"></span></div>
         <button class="btn primary" style="width:100%" data-jump="pricing">Upgrade</button>
       </div>
     </aside>
@@ -544,11 +545,14 @@
 
       <section class="page active" id="home">
         <div class="hero">
-          <div class="model-tag"><span class="dot"></span>Combined NOVA AI + NovaMind AI</div>
+          <div class="model-tag"><span class="dot"></span>GitHub Pages Ready</div>
           <h1>The Future of <span class="gradient-text">Intelligence</span> is Here</h1>
           <p style="max-width:680px;font-size:17px">
-            One combined program with instant answers, local image creation, voice assistant, dashboard, pricing, profile, settings, login, and contact screens.
+            Works on GitHub Pages! Local AI chat, image creation, voice assistant with browser-based storage.
           </p>
+          <div style="margin: 16px 0; padding: 12px; background: rgba(15,240,192,0.1); border: 1px solid var(--border-hot); border-radius: var(--radius);">
+            <strong style="color: var(--mint);">✓ GitHub Pages Compatible:</strong> Pure HTML/CSS/JS - No server needed!
+          </div>
           <div class="actions">
             <button class="btn primary" data-jump="chat">Start Chat</button>
             <button class="btn" data-jump="image">Create Image</button>
@@ -565,7 +569,7 @@
 
       <section class="page" id="chat">
         <h2>AI Chat</h2>
-        <p>Local demo chat. Replace <code>makeAnswer()</code> with your API backend for real AI.</p>
+        <p>Local demo chat with browser storage. Data saved to your browser automatically.</p>
         <div class="tool-layout">
           <div class="card">
             <textarea id="chatInput" placeholder="Ask NOVA AI anything..."></textarea>
@@ -623,6 +627,10 @@
           <div class="card"><div class="stat">100+</div><p>Languages</p></div>
         </div>
         <div class="card" style="margin-top:18px">
+          <h3>Your Usage</h3>
+          <p id="userUsage">Chat: 0 | Images: 0 | Voice: 0 | Total: 0</p>
+        </div>
+        <div class="card" style="margin-top:18px">
           <h3>AI Suggestion</h3>
           <p id="dashboardTip">Your image and chat usage is high. Add prompt templates and saved projects next.</p>
           <button class="btn primary" id="newTip">Generate Tip</button>
@@ -633,8 +641,8 @@
         <h2>Pricing</h2>
         <div class="grid">
           <div class="card"><h3>Free</h3><div class="price">$0</div><p>Basic chat and limited images.</p><button class="btn">Current</button></div>
-          <div class="card"><h3>Pro</h3><div class="price">$19</div><p>More generation, voice tools, saved history.</p><button class="btn primary">Choose Pro</button></div>
-          <div class="card"><h3>Ultra</h3><div class="price">$49</div><p>Best models, teams, analytics, priority generation.</p><button class="btn primary">Choose Ultra</button></div>
+          <div class="card"><h3>Pro</h3><div class="price">$19</div><p>More generation, voice tools, saved history.</p><button class="btn primary" id="choosePro">Choose Pro</button></div>
+          <div class="card"><h3>Ultra</h3><div class="price">$49</div><p>Best models, teams, analytics, priority generation.</p><button class="btn primary" id="chooseUltra">Choose Ultra</button></div>
         </div>
       </section>
 
@@ -642,29 +650,29 @@
         <h2>Profile</h2>
         <div class="card">
           <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
-            <div class="logo-mark" style="width:78px;height:78px;font-size:28px">U</div>
-            <div><h3>User Creator</h3><p>@nova-user | Pro Plan | AI enthusiast and developer</p></div>
+            <div class="logo-mark" style="width:78px;height:78px;font-size:28px" id="profileAvatar">U</div>
+            <div><h3 id="profileName">Not Logged In</h3><p id="profileDesc">Please login to view your profile</p></div>
           </div>
         </div>
         <div class="grid">
-          <div class="card"><div class="stat">1,247</div><p>Total messages</p></div>
-          <div class="card"><div class="stat">89</div><p>Images created</p></div>
-          <div class="card"><div class="stat">142</div><p>Days active</p></div>
+          <div class="card"><div class="stat" id="profileMessages">0</div><p>Total messages</p></div>
+          <div class="card"><div class="stat" id="profileImages">0</div><p>Images created</p></div>
+          <div class="card"><div class="stat" id="profileDays">0</div><p>Days active</p></div>
         </div>
       </section>
 
       <section class="page" id="settings">
         <h2>Settings</h2>
         <div class="card">
-          <div class="settings-row"><div><strong>Streaming Responses</strong><p>Show answers while generating.</p></div><div class="toggle on"></div></div>
-          <div class="settings-row"><div><strong>AI Memory</strong><p>Remember context between sessions.</p></div><div class="toggle on"></div></div>
-          <div class="settings-row"><div><strong>Tamil Mode</strong><p>Enhanced Tamil language support.</p></div><div class="toggle"></div></div>
-          <div class="settings-row"><div><strong>Notifications</strong><p>Notify about responses and updates.</p></div><div class="toggle on"></div></div>
+          <div class="settings-row"><div><strong>Streaming Responses</strong><p>Show answers while generating.</p></div><div class="toggle on" id="streamToggle"></div></div>
+          <div class="settings-row"><div><strong>AI Memory</strong><p>Remember context between sessions.</p></div><div class="toggle on" id="memoryToggle"></div></div>
+          <div class="settings-row"><div><strong>Tamil Mode</strong><p>Enhanced Tamil language support.</p></div><div class="toggle" id="tamilToggle"></div></div>
+          <div class="settings-row"><div><strong>Notifications</strong><p>Notify about responses and updates.</p></div><div class="toggle on" id="notifyToggle"></div></div>
         </div>
       </section>
 
       <section class="page" id="login">
-        <h2>Login</h2>
+        <h2>Login / Register</h2>
         <div class="card" style="max-width:430px">
           <input id="nameInput" placeholder="Name" style="margin-bottom:12px">
           <input id="emailInput" type="email" placeholder="Email" style="margin-bottom:12px">
@@ -697,6 +705,326 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // ==================== LOCAL BACKEND WITH BROWSER STORAGE ====================
+    // Works on GitHub Pages - Uses localStorage for data persistence
+    
+    const App = {
+      currentUser: null,
+      chatHistory: [],
+      imageHistory: [],
+      usage: { chat: 0, image: 0, voice: 0, total: 0 },
+      plan: 'free',
+      
+      // Initialize from localStorage
+      init() {
+        const savedUser = localStorage.getItem('nova_user');
+        const savedChat = localStorage.getItem('nova_chat');
+        const savedImage = localStorage.getItem('nova_image');
+        const savedUsage = localStorage.getItem('nova_usage');
+        const savedPlan = localStorage.getItem('nova_plan');
+        
+        if (savedUser) this.currentUser = JSON.parse(savedUser);
+        if (savedChat) this.chatHistory = JSON.parse(savedChat);
+        if (savedImage) this.imageHistory = JSON.parse(savedImage);
+        if (savedUsage) this.usage = JSON.parse(savedUsage);
+        if (savedPlan) this.plan = savedPlan;
+        
+        this.updateUI();
+      },
+      
+      // Save to localStorage
+      save() {
+        if (this.currentUser) localStorage.setItem('nova_user', JSON.stringify(this.currentUser));
+        localStorage.setItem('nova_chat', JSON.stringify(this.chatHistory));
+        localStorage.setItem('nova_image', JSON.stringify(this.imageHistory));
+        localStorage.setItem('nova_usage', JSON.stringify(this.usage));
+        localStorage.setItem('nova_plan', this.plan);
+      },
+      
+      // Authentication
+      register(name, email, password) {
+        const existing = localStorage.getItem(`nova_user_${email}`);
+        if (existing) throw new Error('Email already registered');
+        
+        const user = {
+          id: Date.now().toString(),
+          name,
+          email,
+          password: btoa(password),
+          plan: 'free',
+          createdAt: new Date().toISOString()
+        };
+        
+        localStorage.setItem(`nova_user_${email}`, JSON.stringify(user));
+        this.currentUser = user;
+        this.plan = 'free';
+        this.usage = { chat: 0, image: 0, voice: 0, total: 0 };
+        this.save();
+        
+        return { user: { id: user.id, name: user.name, email: user.email, plan: user.plan } };
+      },
+      
+      login(email, password) {
+        const userJson = localStorage.getItem(`nova_user_${email}`);
+        if (!userJson) throw new Error('Invalid credentials');
+        
+        const user = JSON.parse(userJson);
+        if (user.password !== btoa(password)) throw new Error('Invalid credentials');
+        
+        this.currentUser = user;
+        this.plan = user.plan;
+        
+        const usageKey = `nova_usage_${user.id}`;
+        const savedUsage = localStorage.getItem(usageKey);
+        if (savedUsage) this.usage = JSON.parse(savedUsage);
+        else this.usage = { chat: 0, image: 0, voice: 0, total: 0 };
+        
+        const chatKey = `nova_chat_${user.id}`;
+        const savedChat = localStorage.getItem(chatKey);
+        if (savedChat) this.chatHistory = JSON.parse(savedChat);
+        
+        const imageKey = `nova_image_${user.id}`;
+        const savedImage = localStorage.getItem(imageKey);
+        if (savedImage) this.imageHistory = JSON.parse(savedImage);
+        
+        this.save();
+        
+        return { user: { id: user.id, name: user.name, email: user.email, plan: user.plan } };
+      },
+      
+      logout() {
+        this.currentUser = null;
+        this.plan = 'free';
+        this.usage = { chat: 0, image: 0, voice: 0, total: 0 };
+        localStorage.removeItem('nova_user');
+        this.updateUI();
+      },
+      
+      // Chat
+      chat(prompt) {
+        if (!this.currentUser) throw new Error('Please login first');
+        
+        const planLimits = { free: 100, pro: 1000, ultra: 10000 };
+        if (this.usage.total >= planLimits[this.plan]) {
+          throw new Error('Usage limit reached. Upgrade your plan.');
+        }
+        
+        this.usage.total++;
+        this.usage.chat++;
+        
+        const answer = this.generateAnswer(prompt);
+        
+        const chatEntry = {
+          id: Date.now().toString(),
+          prompt,
+          answer,
+          timestamp: new Date().toISOString()
+        };
+        this.chatHistory.push(chatEntry);
+        
+        const chatKey = `nova_chat_${this.currentUser.id}`;
+        localStorage.setItem(chatKey, JSON.stringify(this.chatHistory));
+        
+        const usageKey = `nova_usage_${this.currentUser.id}`;
+        localStorage.setItem(usageKey, JSON.stringify(this.usage));
+        
+        this.updateUI();
+        
+        return { answer, usage: this.usage, chatId: chatEntry.id };
+      },
+      
+      getChatHistory(limit = 50) {
+        return { history: this.chatHistory.slice(-limit).reverse() };
+      },
+      
+      // Image
+      generateImage(prompt, style = 'cinematic') {
+        if (!this.currentUser) throw new Error('Please login first');
+        
+        const planLimits = { free: 10, pro: 100, ultra: 1000 };
+        if (this.usage.image >= planLimits[this.plan]) {
+          throw new Error('Image generation limit reached. Upgrade your plan.');
+        }
+        
+        this.usage.total++;
+        this.usage.image++;
+        
+        const imageData = this.generateFallbackImage(prompt, style);
+        
+        const imageEntry = {
+          id: Date.now().toString(),
+          prompt,
+          style,
+          imageData,
+          timestamp: new Date().toISOString()
+        };
+        this.imageHistory.push(imageEntry);
+        
+        const imageKey = `nova_image_${this.currentUser.id}`;
+        localStorage.setItem(imageKey, JSON.stringify(this.imageHistory));
+        
+        const usageKey = `nova_usage_${this.currentUser.id}`;
+        localStorage.setItem(usageKey, JSON.stringify(this.usage));
+        
+        this.updateUI();
+        
+        return { imageUrl: `data:image/png;base64,${imageData}`, usage: this.usage, imageId: imageEntry.id };
+      },
+      
+      getImageHistory(limit = 20) {
+        return { history: this.imageHistory.slice(-limit).reverse() };
+      },
+      
+      // Voice
+      useVoice() {
+        if (!this.currentUser) throw new Error('Please login first');
+        
+        this.usage.total++;
+        this.usage.voice++;
+        
+        const usageKey = `nova_usage_${this.currentUser.id}`;
+        localStorage.setItem(usageKey, JSON.stringify(this.usage));
+        
+        this.updateUI();
+        
+        return { usage: this.usage };
+      },
+      
+      // Upgrade
+      upgrade(newPlan) {
+        if (!this.currentUser) throw new Error('Please login first');
+        if (!['pro', 'ultra'].includes(newPlan)) throw new Error('Invalid plan');
+        
+        this.plan = newPlan;
+        this.currentUser.plan = newPlan;
+        
+        localStorage.setItem('nova_user', JSON.stringify(this.currentUser));
+        localStorage.setItem('nova_plan', newPlan);
+        
+        this.updateUI();
+        
+        return { message: `Upgraded to ${newPlan} plan`, plan: newPlan };
+      },
+      
+      // Stats
+      getStats() {
+        return {
+          usage: this.usage,
+          plan: this.plan,
+          totalMessages: this.chatHistory.length,
+          totalImages: this.imageHistory.length,
+          accountAge: this.currentUser ? Math.floor((Date.now() - new Date(this.currentUser.createdAt).getTime()) / (1000 * 60 * 60 * 24)) : 0
+        };
+      },
+      
+      getTip() {
+        const tips = [
+          'Add project folders so users can save related chats, images, and voice notes together.',
+          'Create prompt presets for business, coding, Tamil translation, image design, and student study workflows.',
+          'Add usage limits, export history, and a backend API proxy before production release.',
+          'Turn image prompts into video storyboards for a future video generation feature.',
+          'Implement saved prompts and templates for recurring tasks.',
+          'Add collaboration features for team usage on Ultra plan.'
+        ];
+        return { tip: tips[Math.floor(Math.random() * tips.length)] };
+      },
+      
+      // Contact
+      submitContact(name, email, message) {
+        if (!name || !email || !message) throw new Error('All fields required');
+        console.log('Contact:', { name, email, message });
+        return { message: 'Message sent! We will respond within 24 hours.' };
+      },
+      
+      // Helper
+      generateAnswer(prompt) {
+        const clean = prompt.trim();
+        return [
+          "NOVA answer:",
+          "",
+          "Main idea: " + clean,
+          "Recommended action: break it into a goal, inputs, output format, and deadline.",
+          "Data saved to your browser (localStorage).",
+          "Extra feature idea: save this prompt into project history and allow image or voice generation from the same prompt."
+        ].join('\n');
+      },
+      
+      generateFallbackImage(prompt, style) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 720;
+        canvas.height = 720;
+        const ctx = canvas.getContext('2d');
+        
+        const colors = {
+          cinematic: ['#071018', '#0ff0c0', '#f5a623'],
+          anime: ['#171033', '#ff4b6e', '#1a8cff'],
+          product: ['#101827', '#e8f0fe', '#0ff0c0'],
+          editorial: ['#21151c', '#f5a623', '#7b5ea7']
+        }[style] || ['#071018', '#0ff0c0', '#1a8cff'];
+        
+        const gradient = ctx.createLinearGradient(0, 0, 720, 720);
+        gradient.addColorStop(0, colors[0]);
+        gradient.addColorStop(0.52, colors[1]);
+        gradient.addColorStop(1, colors[2]);
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 720, 720);
+        
+        for (let i = 0; i < 38; i++) {
+          ctx.fillStyle = 'rgba(255,255,255,0.18)';
+          ctx.beginPath();
+          ctx.arc(Math.random() * 720, Math.random() * 720, 28 + Math.random() * 120, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        ctx.fillStyle = 'rgba(0,0,0,0.42)';
+        ctx.fillRect(0, 480, 720, 220);
+        ctx.fillStyle = '#e8f0fe';
+        ctx.font = '800 30px Syne, sans-serif';
+        ctx.fillText('NOVA AI IMAGE', 42, 545);
+        ctx.font = '20px DM Sans, sans-serif';
+        
+        const words = prompt.split(/\s+/);
+        let line = '';
+        let y = 585;
+        words.forEach(word => {
+          const test = line + word + ' ';
+          if (test.length > 40 && line) {
+            ctx.fillText(line, 42, y);
+            line = word + ' ';
+            y += 28;
+          } else {
+            line = test;
+          }
+        });
+        ctx.fillText(line, 42, y);
+        
+        return canvas.toDataURL('image/png').split(',')[1];
+      },
+      
+      updateUI() {
+        const planNames = { free: 'Free', pro: 'Pro', ultra: 'Ultra' };
+        document.getElementById('userPlan').textContent = `${planNames[this.plan]} Plan`;
+        const limit = { free: 100, pro: 1000, ultra: 10000 }[this.plan];
+        document.getElementById('usageText').textContent = `${this.usage.total} / ${limit} requests used`;
+        document.getElementById('usageBar').style.width = `${(this.usage.total / limit) * 100}%`;
+        document.getElementById('userUsage').textContent = `Chat: ${this.usage.chat} | Images: ${this.usage.image} | Voice: ${this.usage.voice} | Total: ${this.usage.total}`;
+        
+        if (this.currentUser) {
+          document.getElementById('profileName').textContent = this.currentUser.name;
+          document.getElementById('profileDesc').textContent = `@${this.currentUser.email.split('@')[0]} | ${this.plan} Plan`;
+          document.getElementById('profileAvatar').textContent = this.currentUser.name.charAt(0);
+          document.getElementById('profileMessages').textContent = this.chatHistory.length;
+          document.getElementById('profileImages').textContent = this.imageHistory.length;
+        }
+      }
+    };
+
+    // Initialize app
+    App.init();
+
+    // ==================== FRONTEND LOGIC ====================
+    
     const pages = document.querySelectorAll(".page");
     const navButtons = document.querySelectorAll(".nav-btn");
     const title = document.getElementById("topTitle");
@@ -705,16 +1033,9 @@
     const ctx = canvas.getContext("2d");
 
     const pageNames = {
-      home: "Home",
-      chat: "AI Chat",
-      image: "Image Generator",
-      voice: "Voice AI",
-      dashboard: "Dashboard",
-      pricing: "Pricing",
-      profile: "Profile",
-      settings: "Settings",
-      login: "Login",
-      contact: "Contact"
+      home: "Home", chat: "AI Chat", image: "Image Generator", 
+      voice: "Voice AI", dashboard: "Dashboard", pricing: "Pricing",
+      profile: "Profile", settings: "Settings", login: "Login", contact: "Contact"
     };
 
     function showPage(id) {
@@ -742,34 +1063,31 @@
       setTimeout(() => box.classList.remove("show"), 2200);
     }
 
-    function makeAnswer(prompt) {
-      const clean = prompt.trim();
-      if (!clean) return "Ask a question first.";
-      return [
-        "NOVA answer:",
-        "",
-        "Main idea: " + clean,
-        "Recommended action: break it into a goal, inputs, output format, and deadline.",
-        "For a real AI backend, connect this chat button to your server endpoint and keep API keys private.",
-        "Extra feature idea: save this prompt into project history and allow image or voice generation from the same prompt."
-      ].join("\\n");
-    }
-
+    // Chat
     document.getElementById("sendChat").addEventListener("click", () => {
       const input = document.getElementById("chatInput");
       const box = document.getElementById("chatBox");
       const prompt = input.value.trim();
+      
       if (!prompt) return toast("Type a chat prompt first.");
+      
       box.insertAdjacentHTML("beforeend", `<div class="msg user">${escapeHtml(prompt)}</div>`);
-      box.insertAdjacentHTML("beforeend", `<div class="msg">${escapeHtml(makeAnswer(prompt)).replace(/\\n/g, "<br>")}</div>`);
-      input.value = "";
-      box.scrollTop = box.scrollHeight;
+      
+      try {
+        const response = App.chat(prompt);
+        box.insertAdjacentHTML("beforeend", `<div class="msg">${escapeHtml(response.answer).replace(/\n/g, "<br>")}</div>`);
+        input.value = "";
+        box.scrollTop = box.scrollHeight;
+      } catch (error) {
+        box.insertAdjacentHTML("beforeend", `<div class="msg">Error: ${error.message}</div>`);
+      }
     });
 
     document.getElementById("clearChat").addEventListener("click", () => {
       document.getElementById("chatBox").innerHTML = '<div class="msg">Chat cleared. Ask NOVA AI anything.</div>';
     });
 
+    // Image
     function palette(style) {
       return {
         cinematic: ["#071018", "#0ff0c0", "#f5a623"],
@@ -827,7 +1145,7 @@
     }
 
     function wrapText(context, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(/\\s+/);
+      const words = text.split(/\s+/);
       let line = "";
       words.forEach(word => {
         const test = line + word + " ";
@@ -842,39 +1160,34 @@
       context.fillText(line, x, y);
     }
 
-    document.getElementById("makeImage").addEventListener("click", drawImage);
+    document.getElementById("makeImage").addEventListener("click", () => {
+      const prompt = document.getElementById("imagePrompt").value.trim();
+      if (!prompt) return toast("Enter an image prompt first.");
+      
+      const style = document.getElementById("imageStyle").value;
+      
+      try {
+        drawImage();
+        const response = App.generateImage(prompt, style);
+        toast("Image generated successfully!");
+      } catch (error) {
+        toast(`Error: ${error.message}`);
+      }
+    });
+
     document.getElementById("downloadImage").addEventListener("click", () => {
       const link = document.createElement("a");
-      link.download = "combined-nova-ai-image.png";
+      link.download = "nova-ai-image.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
     });
 
-    document.getElementById("newTip").addEventListener("click", () => {
-      const tips = [
-        "Add project folders so users can save related chats, images, and voice notes together.",
-        "Create prompt presets for business, coding, Tamil translation, image design, and student study workflows.",
-        "Add usage limits, export history, and a backend API proxy before production release.",
-        "Turn image prompts into video storyboards for a future video generation feature."
-      ];
-      document.getElementById("dashboardTip").textContent = tips[Math.floor(Math.random() * tips.length)];
-    });
-
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      const email = document.getElementById("emailInput").value.trim();
-      document.getElementById("loginMsg").textContent = email ? "Demo login complete for " + email : "Enter your email first.";
-    });
-
-    document.getElementById("draftMsg").addEventListener("click", () => {
-      document.getElementById("contactMsg").value = "Hello NOVA AI team, I would like help with setting up the combined AI chat, image, and voice platform. Please share the next steps for connecting real AI APIs and deployment.";
-    });
-
-    document.getElementById("sendMsg").addEventListener("click", () => toast("Demo message sent."));
-
+    // Voice
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     let lastVoiceAnswer = "";
     document.getElementById("listenBtn").addEventListener("click", () => {
-      if (!SpeechRecognition) return toast("Speech recognition is not supported in this browser.");
+      if (!SpeechRecognition) return toast("Speech recognition not supported in this browser.");
+      
       const recognition = new SpeechRecognition();
       recognition.lang = "en-US";
       recognition.onstart = () => {
@@ -883,9 +1196,16 @@
       };
       recognition.onresult = event => {
         const text = event.results[0][0].transcript;
-        lastVoiceAnswer = makeAnswer(text);
         document.getElementById("transcript").textContent = text;
-        document.getElementById("voiceAnswer").textContent = lastVoiceAnswer;
+        
+        try {
+          App.useVoice();
+          const response = App.chat(text);
+          lastVoiceAnswer = response.answer;
+          document.getElementById("voiceAnswer").textContent = response.answer;
+        } catch (error) {
+          document.getElementById("voiceAnswer").textContent = `Error: ${error.message}`;
+        }
       };
       recognition.onend = () => {
         document.getElementById("voiceOrb").classList.remove("listening");
@@ -896,18 +1216,83 @@
 
     document.getElementById("speakBtn").addEventListener("click", () => {
       const text = lastVoiceAnswer || document.getElementById("voiceAnswer").textContent;
-      if (!("speechSynthesis" in window)) return toast("Speech synthesis is not supported.");
+      if (!("speechSynthesis" in window)) return toast("Speech synthesis not supported.");
       speechSynthesis.cancel();
       speechSynthesis.speak(new SpeechSynthesisUtterance(text));
     });
 
+    // Login
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const name = document.getElementById("nameInput").value.trim();
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+      
+      if (!email || !password) {
+        document.getElementById("loginMsg").textContent = "Enter email and password.";
+        return;
+      }
+      
+      try {
+        let result;
+        if (name) {
+          result = App.register(name, email, password);
+          document.getElementById("loginMsg").textContent = `Account created! Welcome, ${name}`;
+        } else {
+          result = App.login(email, password);
+          document.getElementById("loginMsg").textContent = `Login successful! Welcome, ${result.user.name}`;
+        }
+        toast("Success!");
+      } catch (error) {
+        document.getElementById("loginMsg").textContent = error.message;
+      }
+    });
+
+    // Upgrade
+    document.getElementById("choosePro").addEventListener("click", () => {
+      try {
+        App.upgrade('pro');
+        toast("Upgraded to Pro!");
+      } catch (error) {
+        toast(error.message);
+      }
+    });
+
+    document.getElementById("chooseUltra").addEventListener("click", () => {
+      try {
+        App.upgrade('ultra');
+        toast("Upgraded to Ultra!");
+      } catch (error) {
+        toast(error.message);
+      }
+    });
+
+    // Contact
+    document.getElementById("draftMsg").addEventListener("click", () => {
+      document.getElementById("contactMsg").value = "Hello NOVA AI team, I would like help with setting up the platform. Please share next steps.";
+    });
+
+    document.getElementById("sendMsg").addEventListener("click", () => {
+      const name = document.getElementById("contactName").value.trim();
+      const email = document.getElementById("contactEmail").value.trim();
+      const message = document.getElementById("contactMsg").value.trim();
+      
+      try {
+        App.submitContact(name, email, message);
+        toast("Message sent!");
+      } catch (error) {
+        toast(error.message);
+      }
+    });
+
+    // New tip
+    document.getElementById("newTip").addEventListener("click", () => {
+      const { tip } = App.getTip();
+      document.getElementById("dashboardTip").textContent = tip;
+    });
+
     function escapeHtml(value) {
       return value.replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
       }[char]));
     }
 
